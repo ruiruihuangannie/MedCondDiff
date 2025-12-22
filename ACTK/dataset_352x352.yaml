@@ -1,0 +1,25 @@
+num_channels: 5 # include background
+
+train_dataset:
+  name: dataset.datasets.dataset
+  params:
+    image_root: './media/ACTK/TrainImage/'
+    gt_root: './media/ACTK/TrainGT/'
+    size: 352
+    split: 'train'
+
+validation_dataset:
+  name: dataset.datasets.dataset
+  params:
+    image_root: './media/ACTK/ValImage/'
+    gt_root: './media/ACTK/ValGT/'
+    size: 352
+    split: 'val'
+
+test_dataset:
+  name: dataset.datasets.dataset
+  params:
+    image_root: './media/ACTK/TestImage/'
+    gt_root: './media/ACTK/TestGT/'
+    size: 352
+    split: 'test'

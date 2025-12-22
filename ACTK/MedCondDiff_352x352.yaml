@@ -1,0 +1,40 @@
+project_name: MedCondDiff_ACTK
+
+__base__:
+  - config/ACTK/dataset_352x352.yaml
+
+model:
+  name: model.net.net
+  params:
+    in_chans: 1
+    num_classes: ${num_channels}
+
+cond_uvit:
+  name: model.net.EmptyObject
+  params:
+    conditioning_klass: model.net.EmptyObject
+
+diffusion_model:
+  name: model.SimpleDiffSef.CondGaussianDiffusion
+  params:
+    image_size: 352
+    channels: ${num_channels}
+    cond_channels: 1
+    num_sample_steps: 10
+    pred_objective: 'x0'
+    loss_type: 'model.loss.dice_ce_loss'
+
+optimizer:
+  # name: torch.optim.AdamW
+  name: model.optimizer.AdamW
+  params:
+     lr: 1e-4
+     weight_decay: 0.01
+
+train_forward_fn: "model.train_val_forward.simple_train_forward"
+val_forward_fn: "model.train_val_forward.simple_val_forward"
+
+train_dataset:
+  name: dataset.datasets.dataset
+
+# accelerate launch train.py --config config/ACTK/MedCondDiff_352x352.yaml --num_epoch=100 --batch_size=4 --gradient_accumulate_every=1

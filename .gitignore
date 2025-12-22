@@ -1,0 +1,10 @@
+*/__pycache__
+*/*/__pycache__
+media/
+config/
+pretrained_weights/
+wandb/
+setup*
+results/
+*.pt
+*.txt
